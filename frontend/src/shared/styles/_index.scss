@@ -1,0 +1,17 @@
+@import "./_variables";
+@import "./_reset";
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: $radius;
+  background-color: $primary-color;
+  color: white;
+  cursor: pointer;
+  transition: $transition;
+}
