@@ -1,13 +1,14 @@
 .app-container {
   display: flex;
   flex-direction: column;
-
+  background-color: white;
   min-height: 100vh;
 }
 
 .main-content {
   flex: 1;
   padding: 2rem;
+  color: black;
   max-width: 960px;
   margin: 0 auto;
 }
