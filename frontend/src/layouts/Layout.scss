@@ -37,19 +37,29 @@
 
   main {
     height: 100vh;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    align-content: center;
     padding: 2rem;
   }
 
   footer {
     text-align: center;
     padding: 1rem;
-
     margin-top: 2rem;
     font-size: 0.9rem;
     color: #555;
+  }
+  .auth-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    .auth-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
   }
 }
