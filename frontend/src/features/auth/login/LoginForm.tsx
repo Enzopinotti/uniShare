@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import type { LoginFormData } from "../interfaces";
-import "./AuthForm.scss";
+import "../AuthForm.scss";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>();
+  } = useForm<LoginFormData>({ mode: "onSubmit" });
 
   const onSubmit = (data: LoginFormData) => {
     console.log("Datos enviados:", data);

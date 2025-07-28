@@ -9,7 +9,7 @@ const SignUpForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignUpFormData>();
+  } = useForm<SignUpFormData>({ mode: "onSubmit" });
 
   const onSubmit = (data: SignUpFormData) => {
     console.log("Sign Up data enviada:", data);
@@ -26,7 +26,10 @@ const SignUpForm = () => {
             type="text"
             {...register("name", {
               required: "El nombre es obligatorio",
-              minLength: { value: 3, message: "Mínimo 3 caracteres" },
+              minLength: {
+                value: 3,
+                message: "El nombre debe contener como mínimo 3 caracteres",
+              },
             })}
           />
           {errors.name && <p className="error">{errors.name.message}</p>}
@@ -53,7 +56,10 @@ const SignUpForm = () => {
             type="password"
             {...register("password", {
               required: "La contraseña es obligatoria",
-              minLength: { value: 6, message: "Mínimo 6 caracteres" },
+              minLength: {
+                value: 8,
+                message: "La contraseña debe contener como mínimo 8 caracteres",
+              },
             })}
           />
           {errors.password && (
