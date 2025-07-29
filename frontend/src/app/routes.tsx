@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout";
 import Dashboard from "../pages/Dashboard";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -13,7 +14,14 @@ export const routes: RouteObject[] = [
       { path: "", element: <Home /> },
       { path: "sign-up", element: <SignUp /> },
       { path: "login", element: <Login /> },
-      { path: "dashboard", element: <Dashboard /> },
+      {
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ];

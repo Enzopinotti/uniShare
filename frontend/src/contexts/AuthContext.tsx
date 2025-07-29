@@ -5,11 +5,12 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
+import type { User } from "../features/auth/interfaces";
 
 type AuthContextType = {
   token: string | null;
-  user: string | null;
-  login: (token: string, user: string) => void;
+  user: User | null;
+  login: (token: string, user: User) => void;
   logout: () => void;
 };
 
@@ -17,20 +18,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
     if (storedToken && storedUser) {
       setToken(storedToken);
-      setUser(storedUser);
+      setUser(JSON.parse(storedUser));
     }
   }, []);
 
-  const login = (token: string, user: string) => {
+  const login = (token: string, user: User) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
     setToken(token);
     setUser(user);
   };

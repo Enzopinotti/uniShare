@@ -1,16 +1,32 @@
 import { useForm } from "react-hook-form";
 import type { LoginFormData } from "../interfaces";
 import "../AuthForm.scss";
+import { fakeAuthApi } from "../services/authService";
+import { useAuth } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({ mode: "onSubmit" });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("Datos enviados:", data);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const { user, token } = await fakeAuthApi.login(
+        data.email,
+        data.password
+      );
+      login(token, user);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al iniciar sesión");
+    }
   };
 
   return (

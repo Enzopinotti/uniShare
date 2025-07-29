@@ -3,7 +3,13 @@
 import { useForm } from "react-hook-form";
 import type { SignUpFormData } from "../interfaces";
 import "../AuthForm.scss";
+import { useAuth } from "../../../contexts/AuthContext";
+import { fakeAuthApi } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 const SignUpForm = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -11,8 +17,20 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<SignUpFormData>({ mode: "onSubmit" });
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log("Sign Up data enviada:", data);
+  const onSubmit = async (data: SignUpFormData) => {
+    try {
+      const { token, user } = await fakeAuthApi.register(
+        data.name,
+        data.email,
+        data.password,
+        data.confirmPassword
+      );
+      login(token, user);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al crear cuenta");
+    }
   };
 
   const password = watch("password");
