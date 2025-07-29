@@ -1,7 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
-import "./Layout.scss"; // luego creamos este archivo para estilos
+import { useAuth } from "../contexts/AuthContext";
+import "./Layout.scss";
+import LogoutButton from "../shared/components/LogoutButton";
 
 const Layout = () => {
+  const { user } = useAuth();
+
   return (
     <div className="layout">
       <header className="navbar">
@@ -32,6 +36,8 @@ const Layout = () => {
           >
             Dashboard
           </NavLink>
+
+          {user && <LogoutButton />}
         </nav>
       </header>
 
