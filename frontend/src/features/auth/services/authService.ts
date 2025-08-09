@@ -26,23 +26,19 @@ export const fakeAuthApi = {
       user: { name: string; email: string };
     }>((resolve, reject) => {
       setTimeout(() => {
-        // Validar que no exista usuario con ese email
         if (usersDB.some((u) => u.email === email)) {
           reject(new Error("Usuario ya registrado"));
           return;
         }
 
-        // Validar que password y confirmPassword coincidan
         if (password !== confirmPassword) {
           reject(new Error("Las contraseñas no coinciden"));
           return;
         }
 
-        // Crear usuario nuevo y agregar a la "DB"
         const newUser = { name, email, password };
         usersDB.push(newUser);
 
-        // Simular token y devolver usuario sin password
         resolve({
           token: "fake-jwt-token",
           user: { name: newUser.name, email: newUser.email },

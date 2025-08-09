@@ -23,9 +23,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
+
     if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setToken(storedToken);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Error parsing stored user from localStorage:", error);
+        // Si querés, podés limpiar el localStorage corrupto:
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 
